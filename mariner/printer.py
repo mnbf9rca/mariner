@@ -137,10 +137,7 @@ class ChiTuPrinter:
                     # can't tell from M27 if the printer is paused so we use our own copy of
                     # the status. This will obviously be a problem if Mariner is started up
                     # and the printer is already paused.
-                    if self._printer_Status.state == PrinterState.PAUSED:
-                        is_paused = True
-                    else:
-                        is_paused = False
+                    is_paused = self._printer_Status.state == PrinterState.PAUSED
                 else:
                     total_bytes = 0
 
@@ -302,8 +299,7 @@ class ChiTuPrinter:
                        timeout_secs: Optional[float] =
                        None) -> str:
         self._send(data + b"\r\n")
-        response = self._read_response(timeout_secs)
-        return response
+        return self._read_response(timeout_secs)
 
     def _send(self, data: bytes) -> None:
         self._serial_port.write(data)
@@ -320,26 +316,21 @@ class ChiTuPrinter:
         readSerialData = True
         while readSerialData:
             response = self._serial_port.readline().decode('utf-8')
-            if response != "":  # presumably this is the timeout popping
-                if response == "ok":
-                    response = ""  # discard heart beats
-                else:
-                    if " N:" in response:
-                        rspCode = self._obtain_line_number(response)
-                        # if we have a line number, then it can either be for an "ok"
-                        # "Er" or "SD" (from my observations)
-                        logger.debug(f"Line Numbered response code is {rspCode}")
-                    else:
-                        responseData += response
-                        response = ""
-            else:
+            if response == "":
                 readSerialData = False
 
+            elif response == "ok":
+                response = ""  # discard heart beats
+            elif " N:" in response:
+                rspCode = self._obtain_line_number(response)
+                # if we have a line number, then it can either be for an "ok"
+                # "Er" or "SD" (from my observations)
+                logger.debug(f"Line Numbered response code is {rspCode}")
+            else:
+                responseData += response
+                response = ""
         if timeout_secs is not None:
             self._serial_port.timeout = original_timeout
         logger.debug(f"Full Response Message:\r\n{responseData}")
-        if responseData == "":
-            response = "ok"
-        else:
-            response = responseData
+        response = "ok" if responseData == "" else responseData
         return response
