@@ -521,7 +521,7 @@ python-versions = "*"
 
 [[package]]
 name = "pyre-check"
-version = "0.9.10"
+version = "0.9.15"
 description = "A performant type checker for Python"
 category = "dev"
 optional = false
@@ -529,7 +529,7 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 async-generator = "*"
-click = "*"
+click = ">=8.0"
 dataclasses-json = "*"
 intervaltree = "*"
 libcst = "*"
@@ -819,7 +819,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ff113ad67206d41a49a54a175cd59c11bc29bb25fcfb6f3fe2cd3580be8123fa"
+content-hash = "3401302f4256d0714916bd79fc4ed74cef0128b19c4e2304033010e19a8c203b"
 
 [metadata.files]
 astroid = [
@@ -1312,9 +1312,9 @@ pypng = [
     {file = "pypng-0.0.21-py3-none-any.whl", hash = "sha256:76f8a1539ec56451da7ab7121f12a361969fe0f2d48d703d198ce2a99d6c5afd"},
 ]
 pyre-check = [
-    {file = "pyre-check-0.9.10.tar.gz", hash = "sha256:d3a5e66fc6e7fa998fcf2c74dbe92746bb6907aaaccfa9e1c88ab591b2c85684"},
-    {file = "pyre_check-0.9.10-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:fb127422a07c86240367739bde704b8da3144b0d3fbd68af937fee445c040f33"},
-    {file = "pyre_check-0.9.10-py3-none-manylinux1_x86_64.whl", hash = "sha256:472e53fbb4e463ecd1e3e6c9c0d25ad0d99a3d596a643f11c6070745a36fac81"},
+    {file = "pyre-check-0.9.15.tar.gz", hash = "sha256:48e93c9675ba0ff28ac7776969534c2d97cb19e3ba73ce88ae92206fe99e8bfe"},
+    {file = "pyre_check-0.9.15-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:2d1a62cea859a6d0fd17ceda2fe0fdd51b8d0c5c0a0594ae72a42aea2bc2f46d"},
+    {file = "pyre_check-0.9.15-py3-none-manylinux1_x86_64.whl", hash = "sha256:5458250974ac553f7bbfe850af350fda79255c60769017094c1f31700d5419e4"},
 ]
 pyre-extensions = [
     {file = "pyre-extensions-0.0.27.tar.gz", hash = "sha256:767607736d5d2da4db3377e016746776a195987fb3c61c7b38b442160e67771f"},
