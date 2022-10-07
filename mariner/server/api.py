@@ -63,7 +63,7 @@ def print_status() -> str:
             num_retries=1,
         )
 
-        if print_status.state == PrinterState.IDLE or print_status.state == PrinterState.CLOSED:
+        if print_status.state in [PrinterState.IDLE, PrinterState.CLOSED]:
             progress = 0.0
             print_details = {}
         else:
