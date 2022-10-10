@@ -19,6 +19,9 @@ import socketserver
 from http import server
 from threading import Condition, Thread
 
+from mariner import config
+
+
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
@@ -91,15 +94,15 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
+if config.get_video_enabled():
+    picam2 = Picamera2()
+    picam2.configure(picam2.create_video_configuration(main={"size": (1280, 1280)}))
+    output = StreamingOutput()
+    picam2.start_recording(JpegEncoder(), FileOutput(output))
 
-picam2 = Picamera2()
-picam2.configure(picam2.create_video_configuration())
-output = StreamingOutput()
-picam2.start_recording(JpegEncoder(), FileOutput(output))
-
-try:
-    address = ('', 8000)
-    server = StreamingServer(address, StreamingHandler)
-    server.serve_forever()
-finally:
-    picam2.stop_recording()
+    try:
+        address = ('', config.get_video_port())
+        server = StreamingServer(address, StreamingHandler)
+        server.serve_forever()
+    finally:
+        picam2.stop_recording()

@@ -5,15 +5,11 @@ set -x
 
 removeuser() {
   USER="mariner"
-
-  if ! id -u "$USER" >/dev/null ; then
-    deluser \
-      --quiet \
-      --system \
-      --group \
-      --remove-all-files \
-      "$USER"
-  fi
+    if getent passwd $USER > /dev/null 2>&1; then
+        deluser "$USER" dialout
+        deluser "$USER" video
+        deluser --remove-home --system $USER
+    fi
 
 }
 

@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python /opt/venvs/mariner3d/lib/python3.9/site-packages/mariner/server/video.py
+ExecStart=/opt/venvs/mariner3d/bin/python /opt/venvs/mariner3d/lib/python3.9/site-packages/mariner/server/video.py
 Restart=on-abort
 
 [Install]

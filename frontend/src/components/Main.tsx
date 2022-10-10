@@ -22,6 +22,9 @@ import { Link, Route, Routes } from "react-router-dom";
 import theme from "../theme";
 import FileList from "./FileList";
 import PrintStatus from "./PrintStatus";
+import Image from "material-ui-image";
+// import { clearConfigCache } from "prettier";
+
 
 const drawerWidth = 240;
 
@@ -111,6 +114,40 @@ function Main({ width }: WithWidth): React.ReactElement {
       setOpen(false);
     }
   };
+  const port = window.location.port ? `:${parseInt(window.location.port) + 1}` : "";
+  const video_url = new URL("/stream.mjpg", window.location.protocol + '//' + window.location.hostname + port).toString()
+  const [video_enabled, setVideoEnabled] = React.useState(false)
+
+  React.useEffect(() => {
+    fetch(`/api/video`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Unexpected response: ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((response_body) => {
+        setVideoEnabled(response_body.enabled);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  function VideoImage(): React.ReactElement {
+    if (video_enabled) {
+      return <Image src={video_url} />
+    }
+    return <></>
+  }
+
+  // fetch /api/video
+  // parse response
+  // return true if enabled
+
+
 
   return (
     <div className={classes.root}>
@@ -189,6 +226,7 @@ function Main({ width }: WithWidth): React.ReactElement {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="sm" className={classes.container}>
+            {VideoImage()}
             <Routes>
               <Route path="/" element={<PrintStatus />} />
               <Route path="/files" element={<FileList />} />
