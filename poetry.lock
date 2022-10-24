@@ -394,7 +394,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "picamera2"
-version = "0.3.3"
+version = "0.3.5"
 description = "The libcamera-based Python interface to Raspberry Pi cameras, based on the original Picamera library"
 category = "main"
 optional = false
@@ -897,7 +897,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2c41427961c62728ff9bafcc7faf811dc65879d14cba1433422e61d99691360f"
+content-hash = "26427772dfff8064f8e5253cc72ae2436ac4e96723c6eae7d29eacad9a3235cb"
 
 [metadata.files]
 astroid = [
@@ -1283,8 +1283,8 @@ pathspec = [
     {file = "pathspec-0.10.1.tar.gz", hash = "sha256:7ace6161b621d31e7902eb6b5ae148d12cfd23f4a249b9ffb6b9fee12084323d"},
 ]
 picamera2 = [
-    {file = "picamera2-0.3.3-py3-none-any.whl", hash = "sha256:e9c77a14a1f0fb739539d0f2478ab994d0c93a7056455aeeaf662f6c62131004"},
-    {file = "picamera2-0.3.3.tar.gz", hash = "sha256:d05f3a9294fde85bda285be66b440e1e13fff5485a95a5c3e1a19003a875cbc9"},
+    {file = "picamera2-0.3.5-py3-none-any.whl", hash = "sha256:bedd461b4351a7b7af516bec44a579067ecd45181fa5ad8d2aa0095c8955d05f"},
+    {file = "picamera2-0.3.5.tar.gz", hash = "sha256:ab871bdcf29d4c07d019b0535a730b6636bd3c96b9e4b8ed2e040577b519ead6"},
 ]
 pidng = [
     {file = "pidng-4.0.9.tar.gz", hash = "sha256:560eb008086f8a715fd9e1ab998817a7d4c8500a7f161b9ce6af5ab27501f82c"},
