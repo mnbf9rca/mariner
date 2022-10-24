@@ -40,7 +40,7 @@
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.9",
-    "@mui/styles": "^5.10.9",
+    "@mui/styles": "^5.10.10",
     "@types/mui-image": "^1.0.1",
     "axios": "^1.1.3",
     "mui-image": "^1.0.7",
