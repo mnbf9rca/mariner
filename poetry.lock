@@ -592,7 +592,7 @@ typing-extensions = "*"
 
 [[package]]
 name = "pyre-extensions"
-version = "0.0.29"
+version = "0.0.30"
 description = "Type system extensions for use with the pyre type checker"
 category = "main"
 optional = false
@@ -897,7 +897,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2c41427961c62728ff9bafcc7faf811dc65879d14cba1433422e61d99691360f"
+content-hash = "4ffe5f64ad82f753574f24faa9dbc2adf7cbbcc80eaaa8395e1270a20c8b8c32"
 
 [metadata.files]
 astroid = [
@@ -1465,8 +1465,8 @@ pyre-check = [
     {file = "pyre_check-0.9.16-py3-none-manylinux1_x86_64.whl", hash = "sha256:ca626b3a0cd1c740190da950399506ccbb9dca7326f6762c3ee8be39685ec4e5"},
 ]
 pyre-extensions = [
-    {file = "pyre-extensions-0.0.29.tar.gz", hash = "sha256:4113600706c47306a156dcc9c405f4d458c505be432699571e357ef20e2d5d77"},
-    {file = "pyre_extensions-0.0.29-py3-none-any.whl", hash = "sha256:f4fef9089872c0656f82de7e8f357af0377dcbb6c2deadc1a7d3037aaf43757e"},
+    {file = "pyre-extensions-0.0.30.tar.gz", hash = "sha256:ba7923c486e089afb37a10623a8f4ae82d73cff42426d711c48af070e5bc31b2"},
+    {file = "pyre_extensions-0.0.30-py3-none-any.whl", hash = "sha256:32b37ede4eed0ea879fdd6d84e0c7811e129f19b76614f1be3a6b47f9a4b1fa0"},
 ]
 pyserial = [
     {file = "pyserial-3.5-py2.py3-none-any.whl", hash = "sha256:c4451db6ba391ca6ca299fb3ec7bae67a5c55dde170964c7a14ceefec02f2cf0"},
