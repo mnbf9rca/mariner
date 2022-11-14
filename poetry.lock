@@ -573,11 +573,11 @@ python-versions = "*"
 
 [[package]]
 name = "pyre-check"
-version = "0.9.16"
+version = "0.9.17"
 description = "A performant type checker for Python"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 click = ">=8.0"
@@ -897,7 +897,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2c41427961c62728ff9bafcc7faf811dc65879d14cba1433422e61d99691360f"
+content-hash = "c35e076c38bfb4d8ccfc16d1883f34c9e17a3cf154487f7d11fae0088b349248"
 
 [metadata.files]
 astroid = [
@@ -1460,9 +1460,9 @@ pypng = [
     {file = "pypng-0.20220715.0.tar.gz", hash = "sha256:739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1"},
 ]
 pyre-check = [
-    {file = "pyre-check-0.9.16.tar.gz", hash = "sha256:d49a5e453f386a454fbceddfef1c674515ae8de1a1461a9d6a3f5848a34c1028"},
-    {file = "pyre_check-0.9.16-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:aa4674d06f41c73b543671b7e2b52a907af739587dce9cc8bd2ee50636de895a"},
-    {file = "pyre_check-0.9.16-py3-none-manylinux1_x86_64.whl", hash = "sha256:ca626b3a0cd1c740190da950399506ccbb9dca7326f6762c3ee8be39685ec4e5"},
+    {file = "pyre-check-0.9.17.tar.gz", hash = "sha256:533ea8035f1ac519db429a2eee665f5b416dfae27dcf0589a7922ca8c3d1c8fe"},
+    {file = "pyre_check-0.9.17-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:0219bedb594470c271221a750116f7a0d2705f8e3bed1274c2d7574835fa6281"},
+    {file = "pyre_check-0.9.17-py3-none-manylinux1_x86_64.whl", hash = "sha256:bd370c44041610d861bbc117e9caafd3fe267b057b7c0450af15b01037c204cb"},
 ]
 pyre-extensions = [
     {file = "pyre-extensions-0.0.29.tar.gz", hash = "sha256:4113600706c47306a156dcc9c405f4d458c505be432699571e357ef20e2d5d77"},
