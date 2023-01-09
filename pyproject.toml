@@ -27,7 +27,7 @@ waitress = "2.1.2"
 whitenoise = "6.2.0"
 pycryptodome = "^3.15.0"
 numpy = "^1.23.2"
-picamera2 = "^0.3.3"
+picamera2 = "^0.3.8"
 
 [tool.poetry.dev-dependencies]
 black = "22.10.0"
