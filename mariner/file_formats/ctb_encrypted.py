@@ -123,7 +123,7 @@ class CTBLayerPointer(LittleEndianStruct):
     padding_01: int = StructType.uint32()
     layer_table_size: int = StructType.uint32()
     padding_02: int = StructType.uint32()
-    
+
 
 @dataclass(frozen=True)
 class CTBEncryptedLayerDef(LittleEndianStruct):
@@ -162,11 +162,8 @@ REPEAT_RGB15_MASK: int = 1 << 5
 
 def check_encrypted(filename: str):
     with open(filename, "rb") as file:
-            ctb_header = CTBEncryptedHeader.unpack(file.read(CTBEncryptedHeader.get_size()))
-            if ctb_header.magic == MAGIC_CTB_ENCRYPTED:
-                return CTBEncryptedFile
-            else:
-                return CTBFile
+        ctb_header = CTBEncryptedHeader.unpack(file.read(CTBEncryptedHeader.get_size()))
+        return CTBEncryptedFile if ctb_header.magic == MAGIC_CTB_ENCRYPTED else CTBFile
 
 def _read_image(width: int, height: int, data: bytes) -> png.Image:
     array: List[List[int]] = [[]]
@@ -179,7 +176,7 @@ def _read_image(width: int, height: int, data: bytes) -> png.Image:
         if color16 & REPEAT_RGB15_MASK:
             repeat += int(struct.unpack_from("<H", data, i)[0]) & 0xFFF
             i += 2
-            
+
         (r, g, b) = (
             (color16 >> 0) & 0x1F,
             (color16 >> 6) & 0x1F,
@@ -207,15 +204,12 @@ def _aes_crypt(enc: bytes, encrypt: bool):
     if len(enc) % 16 != 0:
         temp += ((16 - len(enc) % 16)* 'X')
 
-    if encrypt:
-        return Cipher.encrypt(bytes(temp))
-    else:
-        return Cipher.decrypt(bytes(temp))
+    return Cipher.encrypt(bytes(temp)) if encrypt else Cipher.decrypt(bytes(temp))
 
 @dataclass(frozen=True)
 class CTBEncryptedFile(SlicedModelFile):
     @classmethod
-    def read(self, path: pathlib.Path) -> "CTBEncryptedFile":
+    def read(cls, path: pathlib.Path) -> "CTBEncryptedFile":
         with open(str(path), "rb") as file:
             ctb_header = CTBEncryptedHeader.unpack(file.read(CTBEncryptedHeader.get_size()))
             if ctb_header.magic != MAGIC_CTB_ENCRYPTED:
@@ -223,12 +217,12 @@ class CTBEncryptedFile(SlicedModelFile):
 
             file.seek(ctb_header.slicer_offset)
             encrypted_block = file.read(ctb_header.slicer_size)
-            
+
             decrypted_block = _aes_crypt(encrypted_block, False)
             try:
                 ctb_slicer = CTBEncryptedSlicer.unpack(decrypted_block)
             except:
-                raise Exception("len(decrypted_block) = " + str(len(decrypted_block)))
+                raise Exception(f"len(decrypted_block) = {len(decrypted_block)}")
 
             file.seek(ctb_slicer.machine_name_offset)
             printer_name = file.read(ctb_slicer.machine_name_size).decode()
@@ -240,24 +234,24 @@ class CTBEncryptedFile(SlicedModelFile):
 
             file.seek(-HASH_LENGTH, 2)
             hash = file.read(HASH_LENGTH)
-            if not (set(hash) == set(encrypted_hash)):
+            if set(hash) != set(encrypted_hash):
                 raise TypeError("The file checksum does not match, malformed file.\n" + str(hash) + "\n" + str(encrypted_hash) + "\n" + str(int.from_bytes(hash, 'little')) + "\n" + str(int.from_bytes(encrypted_hash, 'little')) + "\n" + str(int.from_bytes(checksum_hash, 'little')))
 
             LayersPointer = [None] * ctb_slicer.layer_count
-            for layer_index in range(0, ctb_slicer.layer_count):
+            for layer_index in range(ctb_slicer.layer_count):
                 file.seek(ctb_slicer.layer_table_offset)
                 LayersPointer[layer_index] = CTBLayerPointer.unpack(file.read(CTBLayerPointer.get_size()))
 
             LayersDefinition = [None] * ctb_slicer.layer_count
             buggy_layers = []
             end_byte_offset_by_layer = []
-            for layer in range(0, ctb_slicer.layer_count):
+            for layer in range(ctb_slicer.layer_count):
                 file.seek(LayersPointer[layer].layer_offset)
                 LayersDefinition[layer] = CTBEncryptedLayerDef.unpack(file.read(CTBEncryptedLayerDef.get_size()))
                 end_byte_offset_by_layer.append(
                     LayersDefinition[layer].encrypted_data_offset + LayersDefinition[layer].encrypted_data_length
                 )
-    
+
             return CTBEncryptedFile(
                 filename=path.name,
                 bed_size_mm=(

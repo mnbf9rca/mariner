@@ -151,7 +151,7 @@ def _read_image(width: int, height: int, data: bytes) -> png.Image:
 @dataclass(frozen=True)
 class PhotonFile(SlicedModelFile):
     @classmethod
-    def read(self, path: pathlib.Path) -> "PhotonFile":
+    def read(cls, path: pathlib.Path) -> "PhotonFile":
         with open(str(path), "rb") as file:
             photon_header = PhotonHeader.unpack(file.read(PhotonHeader.get_size()))
 
@@ -162,7 +162,7 @@ class PhotonFile(SlicedModelFile):
             printer_name = file.read(photon_slicer.machine_size).decode()
 
             end_byte_offset_by_layer = []
-            for layer in range(0, photon_header.layer_count):
+            for layer in range(photon_header.layer_count):
                 file.seek(
                     photon_header.layer_defs_offset + layer * PhotonLayerDef.get_size()
                 )

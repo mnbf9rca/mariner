@@ -130,7 +130,7 @@ def _read_image(width: int, height: int, data: bytes) -> png.Image:
 @dataclass(frozen=True)
 class FDGFile(SlicedModelFile):
     @classmethod
-    def read(self, path: pathlib.Path) -> "FDGFile":
+    def read(cls, path: pathlib.Path) -> "FDGFile":
         with open(str(path), "rb") as file:
             fdg_header = FDGHeader.unpack(file.read(FDGHeader.get_size()))
 
@@ -138,7 +138,7 @@ class FDGFile(SlicedModelFile):
             printer_name = file.read(fdg_header.machine_size).decode()
 
             end_byte_offset_by_layer = []
-            for layer in range(0, fdg_header.layer_count):
+            for layer in range(fdg_header.layer_count):
                 file.seek(fdg_header.layer_defs_offset + layer * FDGLayerDef.get_size())
                 layer_def = FDGLayerDef.unpack(file.read(FDGLayerDef.get_size()))
                 end_byte_offset_by_layer.append(
